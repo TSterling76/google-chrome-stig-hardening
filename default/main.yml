@@ -62,3 +62,7 @@ google_chrome_approved_search_provider: "bing"
 
 # This details an organization-approved encrypted search string to perform encrypted searches
 google_chrome_approved_search_string: "url"
+
+current_chrome_version_number: 74.0.0
+
+google_chrome_adminstrator_approved_urls: "url"

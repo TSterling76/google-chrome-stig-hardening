@@ -340,7 +340,13 @@
     - patch
 
 - name: "MEDIUM | V-221584 | PATCH | The version of Google Chrome running on the system must be a supported version."
-  command: true
+  win_regedit:
+      path: HKEY_CURRENT_USER\SOFTWARE\Google\Chrome\BLBeacon
+      value: version
+      data: "{{ current_chrome_version_number }}"
+      type: dword
+  when: 
+    - DTBC-0050 
   tags:
     - cat2
     - medium
@@ -351,7 +357,13 @@
     - patch
 
 - name: "MEDIUM | V-221586 | PATCH | Deletion of browser history must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: AllowDeletingBrowserHistory
+      data: 0
+      type: dword
+  when: 
+    - DTBC-0052
   tags:
     - cat2 
     - medium
@@ -362,62 +374,98 @@
     - patch
 
 - name: "MEDIUM | V-221587 | PATCH | Prompt for download location must be enabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: PromptForDownloadLocation
+      data: 1
+      type: dword  
+  when: 
+    - DTBC-0053
   tags:
     - cat2
     - medium
-    - SRG-APP-000089"
-    - V-221587"
-    - SV-221587r615937_rule"
-    - DTBC-0053"
+    - SRG-APP-000089
+    - V-221587
+    - SV-221587r615937_rule
+    - DTBC-0053
     - patch
 
 - name: "MEDIUM | V-221588 | PATCH | Download restrictions must be configured."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: DownloadRestrictions
+      data: 1
+      type: dword  
+  when: 
+    - DTBC-0055
   tags:
     - cat2
     - medium"
-    - SRG-APP-000089"
-    - V-221588"
-    - SV-221588r615937_rule"
-    - DTBC-0055"
+    - SRG-APP-000089
+    - V-221588
+    - SV-221588r615937_rule
+    - DTBC-0055
     - patch
 
 - name: "MEDIUM | V-221590 | PATCH | Safe Browsing Extended Reporting must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: SafeBrowsingExtendedReportingEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0057
   tags:
     - cat2
-    - medium"
-    - SRG-APP-000206"
-    - V-221590"
-    - SV-221590r615937_rule"
-    - DTBC-0057"
+    - medium
+    - SRG-APP-000206
+    - V-221590
+    - SV-221590r615937_rule
+    - DTBC-0057
     - patch
 
 - name: "MEDIUM | V-221591 | PATCH | WebUSB must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: DefaultWebUsbGuardSetting
+      data: 2
+      type: dword  
+  when: 
+    - DTBC-0058
   tags:
     - cat2
-    - medium"
-    - SRG-APP-000141"
-    - V-221591"
-    - SV-221591r615937_rule"
-    - DTBC-0058"
+    - medium
+    - SRG-APP-000141
+    - V-221591
+    - SV-221591r615937_rule
+    - DTBC-0058
     - patch
 
 - name: "MEDIUM | V-221592 | PATCH | Chrome Cleanup must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: ChromeCleanupEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0060
   tags:
     - cat2
-    - medium"
-    - SRG-APP-000089"
-    - V-221592"
-    - SV-221592r615937_rule"
-    - DTBC-0060"
+    - medium
+    - SRG-APP-000089
+    - V-221592
+    - SV-221592r615937_rule
+    - DTBC-0060
     - patch
 
 - name: "MEDIUM | V-221593 | PATCH | Chrome Cleanup reporting must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: ChromeCleanupReportingEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0061
   tags:
     - cat2
     - medium
@@ -428,7 +476,13 @@
     - patch
 
 - name: "MEDIUM | V-221594 | PATCH | Google Cast must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: EnableMediaRouter
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0063
   tags:
     - cat2
     - medium
@@ -439,10 +493,16 @@
     - patch
 
 - name: "MEDIUM | V-221595 | PATCH | Autoplay must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: AutoplayAllowed
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0064
   tags:
     - cat2
-    - medium"
+    - medium
     - SRG-APP-000141
     - V-221595
     - SV-221595r820911_rule
@@ -450,7 +510,13 @@
     - patch
 
 - name: "MEDIUM | V-221596 | PATCH | URLs must be allowlisted for Autoplay use."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: AutoplayAllowlist
+      data: "{{ google_chrome_adminstrator_approved_urls }}"
+      type: dword  
+  when: 
+    - DTBC-0065
   tags:
     - cat2
     - medium
@@ -461,7 +527,13 @@
     - patch
 
 - name: "MEDIUM | V-221597 | PATCH | Anonymized data collection must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: UrlKeyedAnonymizedDataCollectionEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0066
   tags:
     - cat2
     - medium
@@ -472,7 +544,13 @@
     - patch
 
 - name: "MEDIUM | V-221598 | PATCH | Collection of WebRTC event logs must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: WebRtcEventLogCollectionAllowed
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0067
   tags:
     - cat2
     - medium
@@ -483,7 +561,13 @@
     - patch
 
 - name: "MEDIUM | V-226401 | PATCH | Guest Mode must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: BrowserGuestModeEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0069
   tags:
     - cat2
     - medium
@@ -494,7 +578,13 @@
     - patch
 
 - name: "MEDIUM | V-226402 | PATCH | AutoFill for credit cards must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: AutofillCreditCardEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0070
   tags:
     - cat2
     - medium
@@ -505,7 +595,13 @@
     - patch
 
 - name: "MEDIUM | V-226403 | PATCH | AutoFill for addresses must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: AutofillAddressEnabled
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0071
   tags:
     - cat2
     - medium
@@ -516,7 +612,13 @@
     - patch
 
 - name: "MEDIUM | V-226404 | PATCH | Import AutoFill form data must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: ImportAutofillFormData
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0072
   tags:
     - cat2
     - medium
@@ -527,7 +629,13 @@
     - patch
 
 - name: "MEDIUM | V-241787 | PATCH | Web Bluetooth API must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: DefaultWebBluetoothGuardSetting
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0073
   tags:
     - cat2
     - medium
@@ -538,7 +646,13 @@
     - patch
 
 - name: "MEDIUM | V-245538 | PATCH | Use of the QUIC protocol must be disabled."
-  command: true
+  win_regedit:
+      path: HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome
+      value: QuicAllowed 
+      data: 0
+      type: dword  
+  when: 
+    - DTBC-0073
   tags:
     - cat2
     - medium
